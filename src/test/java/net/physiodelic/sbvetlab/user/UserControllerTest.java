@@ -107,6 +107,15 @@ class UserControllerTest {
   }
 
   @Test
+  void userByIdNotFound() throws Exception {
+    given(userService.get(any())).willReturn(null);
+
+    mockMvc.perform(get("/users/4")).andExpect(status().isNotFound());
+
+    verify(userService).get(4L);
+  }
+
+  @Test
   void createUserIsCreated() throws Exception {
     given(userService.create(any())).willReturn(user);
     byte[] body = objectMapper.writeValueAsBytes(user);
