@@ -67,7 +67,7 @@ class UserControllerTest {
   void userByUserNameOk() throws Exception {
     given(userService.getByUserName(any())).willReturn(user);
 
-    mockMvc.perform(get("/users/johnDoe")).andExpect(status().isOk())
+    mockMvc.perform(get("/users/username/johnDoe")).andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
         .andExpect(jsonPath("$.length()").value(7))
         .andExpect(jsonPath("$.first_name").value(user.getFirstName()))
@@ -84,9 +84,26 @@ class UserControllerTest {
   void userByUserNameNotFound() throws Exception {
     given(userService.getByUserName(any())).willReturn(null);
 
-    mockMvc.perform(get("/users/johnDoe")).andExpect(status().isNotFound());
+    mockMvc.perform(get("/users/username/johnDoe")).andExpect(status().isNotFound());
 
     verify(userService).getByUserName("johnDoe");
+  }
+
+  @Test
+  void userByIdOk() throws Exception {
+    given(userService.get(any())).willReturn(user);
+
+    mockMvc.perform(get("/users/3")).andExpect(status().isOk())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+        .andExpect(jsonPath("$.length()").value(7))
+        .andExpect(jsonPath("$.first_name").value(user.getFirstName()))
+        .andExpect(jsonPath("$.last_name").value(user.getLastName()))
+        .andExpect(jsonPath("$.user_name").value(user.getUserName()))
+        .andExpect(jsonPath("$.email").value(user.getEMail()))
+        .andExpect(jsonPath("$.id").value(user.getId()))
+        .andExpect(jsonPath("$.admin_user").value(user.getAdminUser()));
+
+    verify(userService).get(3L);
   }
 
   @Test

@@ -27,7 +27,17 @@ public class UserController {
     return userService.list(null);
   }
 
-  @GetMapping("/users/{userName}")
+  @GetMapping("/users/{id}")
+  public ResponseEntity<User> getUserById(@PathVariable Long id) {
+    User user = userService.get(id);
+    if (user == null) {
+      return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+    } else {
+      return new ResponseEntity<>(user, HttpStatus.OK);
+    }
+  }
+
+  @GetMapping("/users/username/{userName}")
   public ResponseEntity<User> getUserByUserName(@PathVariable String userName) {
     User user = userService.getByUserName(userName);
     if (user == null) {

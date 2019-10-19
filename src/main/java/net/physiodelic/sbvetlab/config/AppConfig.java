@@ -19,7 +19,7 @@ public class AppConfig {
     return new UserServiceImpl(userRepository);
   }
 
-  @Bean
+//  @Bean
   CommandLineRunner commandLineRunner(UserRepository userRepository){
     User user = User.builder()
         .adminUser(false)
