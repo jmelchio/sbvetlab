@@ -15,14 +15,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import net.physiodelic.sbvetlab.config.UtilConfig;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureDataJpa;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-@AutoConfigureDataJpa
 @Import(UtilConfig.class)
 @WebMvcTest(UserController.class)
 class UserControllerTest {
