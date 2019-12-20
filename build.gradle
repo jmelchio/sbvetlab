@@ -32,7 +32,6 @@ dependencies {
 	}
 	testRuntimeOnly 'org.hsqldb:hsqldb'
 
-
 	providedCompile 'org.springframework.boot:spring-boot-starter-tomcat'
 }
 

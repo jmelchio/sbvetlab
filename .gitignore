@@ -24,6 +24,7 @@ hs_err_pid*
 
 # build output
 build
+out
 
 # gradle runtime info
 .gradle
