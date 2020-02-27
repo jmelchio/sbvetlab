@@ -33,5 +33,4 @@ public class AppConfig {
     return args -> logger.info("We have inserted user: "
         + userRepository.save(user).toString());
   }
-
 }
