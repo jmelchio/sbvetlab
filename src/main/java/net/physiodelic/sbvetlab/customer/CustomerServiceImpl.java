@@ -46,6 +46,6 @@ public class CustomerServiceImpl implements CustomerService {
 
   @Override
   public Customer getByCustomerName(String name) {
-    return null;
+    return customerRepository.findByCustomerName(name).orElse(null);
   }
 }
