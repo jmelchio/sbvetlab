@@ -1,5 +1,8 @@
 package net.physiodelic.sbvetlab.config;
 
+import net.physiodelic.sbvetlab.customer.CustomerRepository;
+import net.physiodelic.sbvetlab.customer.CustomerService;
+import net.physiodelic.sbvetlab.customer.CustomerServiceImpl;
 import net.physiodelic.sbvetlab.user.User;
 import net.physiodelic.sbvetlab.user.UserRepository;
 import net.physiodelic.sbvetlab.user.UserService;
@@ -17,6 +20,11 @@ public class AppConfig {
   @Bean
   public UserService userService(UserRepository userRepository) {
     return new UserServiceImpl(userRepository);
+  }
+
+  @Bean
+  public CustomerService customerService(CustomerRepository customerRepository) {
+    return new CustomerServiceImpl(customerRepository);
   }
 
   @Bean
