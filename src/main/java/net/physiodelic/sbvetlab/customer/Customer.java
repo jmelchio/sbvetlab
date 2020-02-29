@@ -25,5 +25,6 @@ public class Customer {
   private String firstName;
   private String lastName;
   @Column(name = "email")
+  private String eMail;
   private String password;
 }
