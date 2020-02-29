@@ -111,12 +111,12 @@ class UserControllerTest {
 
     mockMvc.perform(get("/users/4")).andExpect(status().isNotFound());
 
-    verify(userService).get(4L);
+    verify(userService).get(eq(4L));
   }
 
   @Test
   void createUserIsCreated() throws Exception {
-    given(userService.create(any())).willReturn(user);
+    given(userService.create(any(User.class))).willReturn(user);
     byte[] body = objectMapper.writeValueAsBytes(user);
 
     mockMvc.perform(post("/users").content(body).contentType(MediaType.APPLICATION_JSON))
@@ -130,6 +130,6 @@ class UserControllerTest {
         .andExpect(jsonPath("$.id").value(user.getId()))
         .andExpect(jsonPath("$.admin_user").value(user.getAdminUser()));
 
-    verify(userService).create(any());
+    verify(userService).create(any(User.class));
   }
 }

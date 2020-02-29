@@ -13,11 +13,13 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.Collections;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -100,6 +102,32 @@ class CustomerControllerTest {
         .andExpect(jsonPath("$.id").value(customer.getId()));
 
     verify(customerService).get(eq(1L));
+  }
 
+  @Test
+  void customerByIdNotFound() throws Exception {
+    given(customerService.get(eq(2L))).willReturn(null);
+
+    mockMvc.perform(get("/customers/2")).andExpect(status().isNotFound());
+
+    verify(customerService).get(eq(2L));
+  }
+
+  @Test
+  void createCustomerIsCreated() throws Exception {
+    given(customerService.create(any(Customer.class))).willReturn(customer);
+    byte[] body = objectMapper.writeValueAsBytes(customer);
+
+    mockMvc.perform(post("/customers").content(body).contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().isCreated())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+        .andExpect(jsonPath("$.length()").value(6))
+        .andExpect(jsonPath("$.first_name").value(customer.getFirstName()))
+        .andExpect(jsonPath("$.last_name").value(customer.getLastName()))
+        .andExpect(jsonPath("$.customer_name").value(customer.getCustomerName()))
+        .andExpect(jsonPath("$.email").value(customer.getEMail()))
+        .andExpect(jsonPath("$.id").value(customer.getId()));
+
+    verify(customerService).create(any(Customer.class));
   }
 }
