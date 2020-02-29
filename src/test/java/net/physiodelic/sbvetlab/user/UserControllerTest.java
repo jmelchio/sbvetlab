@@ -1,6 +1,7 @@
 package net.physiodelic.sbvetlab.user;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -63,7 +64,7 @@ class UserControllerTest {
 
   @Test
   void userByUserNameOk() throws Exception {
-    given(userService.getByUserName(any())).willReturn(user);
+    given(userService.getByUserName(eq("johnDoe"))).willReturn(user);
 
     mockMvc.perform(get("/users/username/johnDoe")).andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -75,21 +76,21 @@ class UserControllerTest {
         .andExpect(jsonPath("$.id").value(user.getId()))
         .andExpect(jsonPath("$.admin_user").value(user.getAdminUser()));
 
-    verify(userService).getByUserName("johnDoe");
+    verify(userService).getByUserName(eq("johnDoe"));
   }
 
   @Test
   void userByUserNameNotFound() throws Exception {
-    given(userService.getByUserName(any())).willReturn(null);
+    given(userService.getByUserName(eq("johnDoe"))).willReturn(null);
 
     mockMvc.perform(get("/users/username/johnDoe")).andExpect(status().isNotFound());
 
-    verify(userService).getByUserName("johnDoe");
+    verify(userService).getByUserName(eq("johnDoe"));
   }
 
   @Test
   void userByIdOk() throws Exception {
-    given(userService.get(any())).willReturn(user);
+    given(userService.get(eq(3L))).willReturn(user);
 
     mockMvc.perform(get("/users/3")).andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -101,12 +102,12 @@ class UserControllerTest {
         .andExpect(jsonPath("$.id").value(user.getId()))
         .andExpect(jsonPath("$.admin_user").value(user.getAdminUser()));
 
-    verify(userService).get(3L);
+    verify(userService).get(eq(3L));
   }
 
   @Test
   void userByIdNotFound() throws Exception {
-    given(userService.get(any())).willReturn(null);
+    given(userService.get(eq(4L))).willReturn(null);
 
     mockMvc.perform(get("/users/4")).andExpect(status().isNotFound());
 

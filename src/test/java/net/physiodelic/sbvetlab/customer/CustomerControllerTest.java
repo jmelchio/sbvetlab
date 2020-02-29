@@ -3,8 +3,6 @@ package net.physiodelic.sbvetlab.customer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import net.physiodelic.sbvetlab.config.UtilConfig;
 import org.junit.jupiter.api.Test;
-import org.mockito.BDDMockito;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -46,7 +44,7 @@ class CustomerControllerTest {
       .build();
 
   @Test
-  void getUsersOk() throws Exception {
+  void getCustomersOk() throws Exception {
 
     given(customerService.list(null)).willReturn(Collections.singletonList(customer));
 
@@ -77,5 +75,31 @@ class CustomerControllerTest {
         .andExpect(jsonPath("$.id").value(customer.getId()));
 
     verify(customerService).getByCustomerName(eq("johnDoe"));
+  }
+
+  @Test
+  void customerByCustomerNameNotFound() throws Exception {
+    given(customerService.getByCustomerName(eq("johnDoe"))).willReturn(null);
+
+    mockMvc.perform(get("/customers/customername/johnDoe")).andExpect(status().isNotFound());
+
+    verify(customerService).getByCustomerName(eq("johnDoe"));
+  }
+
+  @Test
+  void customerByIdOk() throws Exception {
+    given(customerService.get(eq(1L))).willReturn(customer);
+
+    mockMvc.perform(get("/customers/1")).andExpect(status().isOk())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+        .andExpect(jsonPath("$.length()").value(6))
+        .andExpect(jsonPath("$.first_name").value(customer.getFirstName()))
+        .andExpect(jsonPath("$.last_name").value(customer.getLastName()))
+        .andExpect(jsonPath("$.customer_name").value(customer.getCustomerName()))
+        .andExpect(jsonPath("$.email").value(customer.getEMail()))
+        .andExpect(jsonPath("$.id").value(customer.getId()));
+
+    verify(customerService).get(eq(1L));
+
   }
 }
