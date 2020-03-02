@@ -46,7 +46,7 @@ class CustomerServiceTest {
 
     Customer result = customerServiceWithMockRepo.create(newCustomer);
 
-    assertThat(result.getCustomerName()).isEqualTo(customer.getCustomerName());
+    assertThat(result).isEqualTo(customer);
 
     verify(customerMockRepository).save(eq(newCustomer));
   }
