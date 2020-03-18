@@ -35,7 +35,7 @@ class CustomerControllerTest {
   private ObjectMapper objectMapper;
 
   @MockBean
-  private CustomerService customerService;
+  private ICustomerService customerService;
 
   private Customer customer = Customer.builder()
       .customerName("johnDoe")

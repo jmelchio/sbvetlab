@@ -17,10 +17,10 @@ import java.util.List;
 @RequestMapping("/customers")
 @CrossOrigin(origins = "*")
 public class CustomerController {
-  private CustomerService customerService;
+  private ICustomerService customerService;
 
   @Autowired
-  public CustomerController(CustomerService customerService) {
+  public CustomerController(ICustomerService customerService) {
     this.customerService = customerService;
   }
 

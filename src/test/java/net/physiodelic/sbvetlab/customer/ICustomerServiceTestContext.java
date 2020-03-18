@@ -5,12 +5,12 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class CustomerServiceTestContext {
+public class ICustomerServiceTestContext {
   @MockBean
   public CustomerRepository customerMockRepository;
 
   @Bean
-  public CustomerService customerServiceWithMockRepo(CustomerRepository customerRepository) {
-    return new CustomerServiceImpl(customerMockRepository);
+  public ICustomerService customerServiceWithMockRepo(CustomerRepository customerRepository) {
+    return new CustomerService(customerMockRepository);
   }
 }

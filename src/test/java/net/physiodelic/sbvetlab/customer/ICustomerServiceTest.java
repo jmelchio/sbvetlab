@@ -14,11 +14,11 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {CustomerServiceTestContext.class})
+@ContextConfiguration(classes = {ICustomerServiceTestContext.class})
 @DisplayName("Testing the customer service")
-class CustomerServiceTest {
+class ICustomerServiceTest {
   @Autowired
-  private CustomerService customerServiceWithMockRepo;
+  private ICustomerService customerServiceWithMockRepo;
 
   @Autowired
   private CustomerRepository customerMockRepository;
