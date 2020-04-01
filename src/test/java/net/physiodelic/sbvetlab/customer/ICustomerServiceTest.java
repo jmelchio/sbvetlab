@@ -14,7 +14,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.verify;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = {ICustomerServiceTestContext.class})
+@ContextConfiguration(classes = {ICustomerServiceTestConfig.class})
 @DisplayName("Testing the customer service")
 class ICustomerServiceTest {
   @Autowired
