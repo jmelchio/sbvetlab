@@ -33,7 +33,7 @@ class UserControllerTest {
   private ObjectMapper objectMapper;
 
   @MockBean
-  private UserService userService;
+  private IUserService userService;
 
   private User user = User.builder()
       .adminUser(false)

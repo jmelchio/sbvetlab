@@ -17,10 +17,10 @@ import java.util.List;
 @RequestMapping("/users")
 @CrossOrigin(origins = "*")
 public class UserController {
-  private final UserService userService;
+  private final IUserService userService;
 
   @Autowired
-  public UserController(UserService userService) {
+  public UserController(IUserService userService) {
     this.userService = userService;
   }
 
