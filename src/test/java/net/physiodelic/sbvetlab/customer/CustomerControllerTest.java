@@ -37,7 +37,7 @@ class CustomerControllerTest {
   @MockBean
   private ICustomerService customerService;
 
-  private Customer customer = Customer.builder()
+  private final Customer customer = Customer.builder()
       .customerName("johnDoe")
       .firstName("John")
       .lastName("Doe")

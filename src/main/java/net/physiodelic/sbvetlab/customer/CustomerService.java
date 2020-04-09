@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 public class CustomerService implements ICustomerService {
-  private CustomerRepository customerRepository;
+  private final CustomerRepository customerRepository;
 
   public CustomerService(CustomerRepository customerRepository) {
     this.customerRepository = customerRepository;

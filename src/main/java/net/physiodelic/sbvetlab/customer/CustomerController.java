@@ -17,7 +17,7 @@ import java.util.List;
 @RequestMapping("/customers")
 @CrossOrigin(origins = "*")
 public class CustomerController {
-  private ICustomerService customerService;
+  private final ICustomerService customerService;
 
   @Autowired
   public CustomerController(ICustomerService customerService) {

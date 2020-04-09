@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -16,6 +17,7 @@ import static org.mockito.Mockito.verify;
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {ICustomerServiceTestConfig.class})
 @DisplayName("Testing the customer service")
+@ActiveProfiles({"test"})
 class ICustomerServiceTest {
   @Autowired
   private ICustomerService customerServiceWithMockRepo;
@@ -23,7 +25,7 @@ class ICustomerServiceTest {
   @Autowired
   private CustomerRepository customerMockRepository;
 
-  private Customer customer = Customer.builder()
+  private final Customer customer = Customer.builder()
       .customerName("johnDoe")
       .firstName("John")
       .lastName("Doe")
